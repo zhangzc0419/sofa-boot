@@ -19,6 +19,7 @@ package com.alipay.sofa.healthcheck.core;
 import org.springframework.boot.actuate.health.Health;
 
 /**
+ * HealthChecker接口定义
  * @author liangen
  * @author qilong.zql
  * @since 2.3.0

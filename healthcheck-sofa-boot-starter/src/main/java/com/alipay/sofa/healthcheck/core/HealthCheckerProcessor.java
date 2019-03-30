@@ -34,7 +34,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Used to process all implementations of {@link HealthChecker}
- *
+ * 中间件检查
  * @author liangen
  * @author qilong.zql
  * @since 2.3.0
@@ -54,6 +54,7 @@ public class HealthCheckerProcessor {
     private LinkedHashMap<String, HealthChecker> healthCheckers = null;
 
     public void init() {
+        //初始化healthCheck信息
         if (isInitiated.compareAndSet(false, true)) {
             Assert.notNull(applicationContext, () -> "Application must not be null");
             Map<String, HealthChecker> beansOfType = applicationContext
@@ -70,7 +71,8 @@ public class HealthCheckerProcessor {
 
     /**
      * Provided for liveness check.
-     *
+     * 和readiness用的同一个healthCheckers对象
+     * isRetry：true for readiness and false for liveness.
      * @param healthMap used to save the information of {@link HealthChecker}.
      * @return
      */
@@ -91,7 +93,8 @@ public class HealthCheckerProcessor {
 
     /**
      * Provided for readiness check.
-     *
+     * 和liveness用的同一个healthCheckers对象
+     * isRetry：true for readiness and false for liveness.
      * @param healthMap used to save the information of {@link HealthChecker}.
      * @return
      */

@@ -34,7 +34,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Used to process all implementations of {@link HealthIndicator}
- *
+ * 健康指标检查
  * @author liangen
  * @author qilong.zql
  * @version 2.3.0
@@ -76,7 +76,7 @@ public class HealthIndicatorProcessor {
 
     /**
      * Provided for readiness check.
-     *
+     * healthIndicators都被做成了readiness check
      * @param healthMap
      * @return
      */

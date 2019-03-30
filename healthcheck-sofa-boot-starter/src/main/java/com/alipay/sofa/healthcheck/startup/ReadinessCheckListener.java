@@ -82,6 +82,9 @@ public class ReadinessCheckListener implements ApplicationContextAware, Priority
     }
 
     @Override
+    /**
+     * 初始化完毕事件做readiness check
+     */
     public void onApplicationEvent(ContextRefreshedEvent event) {
         if (applicationContext.equals(event.getApplicationContext())) {
             healthCheckerProcessor.init();
@@ -102,16 +105,19 @@ public class ReadinessCheckListener implements ApplicationContextAware, Priority
             if (skipComponent()) {
                 logger.warn("Skip HealthChecker health check.");
             } else {
+                //中间件readinessHealthCheck
                 healthCheckerStatus = healthCheckerProcessor
                     .readinessHealthCheck(healthCheckerDetails);
             }
             if (skipIndicator()) {
                 logger.warn("Skip HealthIndicator health check.");
             } else {
+                //健康指标readinessHealthCheck
                 healthIndicatorStatus = healthIndicatorProcessor
                     .readinessHealthCheck(healthIndicatorDetails);
             }
         }
+        //回调事件
         healthCallbackStatus = afterReadinessCheckCallbackProcessor
             .afterReadinessCheckCallback(healthCallbackDetails);
         if (healthCheckerStatus && healthIndicatorStatus && healthCallbackStatus) {

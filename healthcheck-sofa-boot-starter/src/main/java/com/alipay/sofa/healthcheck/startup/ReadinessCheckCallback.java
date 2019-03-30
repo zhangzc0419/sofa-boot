@@ -20,6 +20,7 @@ import org.springframework.boot.actuate.health.Health;
 import org.springframework.context.ApplicationContext;
 
 /**
+ * ReadinessCheck之后的回调方法
  * @author qilong.zql
  * @since 2.5.0
  */

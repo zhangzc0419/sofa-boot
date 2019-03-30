@@ -29,7 +29,10 @@ import java.util.Map;
 
 /**
  * The liveness health check.
- *
+ * 继承spring的HealthIndicator
+ * SofaBootHealthIndicator的实现类分为readinessCheck和livenessHealthCheck执行
+ * 也就是sofa对自己的中间件才会livenessHealthCheck处理
+ * HealthIndicator的实现类都被当作readinessCheck
  * @author liangen
  * @author qilong.zql
  * @since 2.3.0
@@ -46,6 +49,7 @@ public class SofaBootHealthIndicator implements HealthIndicator {
 
     @Override
     public Health health() {
+        //readinessCheck执行完成为前置条件
         Assert.isTrue(readinessCheckListener.isReadinessCheckFinish(),
             HealthCheckConstants.SOFABOOT_HEALTH_CHECK_NOT_READY_MSG);
 
